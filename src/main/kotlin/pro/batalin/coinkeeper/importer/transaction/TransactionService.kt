@@ -31,6 +31,11 @@ class TransactionService(
                 counter = 0
             )
         }
-        return coinKeeperClient.createTransaction(requests).success
+        return try {
+            coinKeeperClient.createTransaction(requests).success
+            return true
+        } catch (e: Exception) {
+            throw RuntimeException("Failure during creation of transaction: $transactions", e)
+        }
     }
 }

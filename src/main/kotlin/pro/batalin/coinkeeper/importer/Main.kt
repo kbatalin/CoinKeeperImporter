@@ -1,15 +1,20 @@
 package pro.batalin.coinkeeper.importer
 
+import kotlinx.coroutines.runBlocking
 import pro.batalin.coinkeeper.importer.category.CategoryService
 import pro.batalin.coinkeeper.importer.client.CoinKeeperClientFactory
+import pro.batalin.coinkeeper.importer.data.SpendeeDataReader
+import pro.batalin.coinkeeper.importer.dataimport.ImportService
 import pro.batalin.coinkeeper.importer.mapper.ObjectMapperFactory
 import pro.batalin.coinkeeper.importer.transaction.TransactionService
+import java.io.File
 import kotlin.system.exitProcess
 
 
 fun main(args: Array<String>) {
     try {
-        doMain()
+        val filePath = args.firstOrNull() ?: "data/spendee.test.csv"
+        doMain(filePath)
     } catch (e: Exception) {
         println(e.message)
         e.printStackTrace()
@@ -19,7 +24,7 @@ fun main(args: Array<String>) {
 
 }
 
-private fun doMain() {
+private fun doMain(filePath: String) {
 
     val objectMapperFactory = ObjectMapperFactory()
     val objectMapper = objectMapperFactory.objectMapper
@@ -27,37 +32,11 @@ private fun doMain() {
     val coinKeeperClient = coinKeeperClientFactory.coinKeeperClient
 
     val categoryService = CategoryService(coinKeeperClient, objectMapper)
-//    val categories = runBlocking {
-//        categoryService.getCategories()
-//    }
-//    categories.forEach { println(it) }
-//    println()
-
     val transactionService = TransactionService(coinKeeperClient)
-//    val creationResult = runBlocking {
-//        transactionService.createTransaction(
-//            listOf(
-//                Transaction(
-//                    sourceCategory = Category("1acc83f8ae5a418591083d30b50075b2", CategoryType.INCOME),
-//                    destinationCategory = Category("16086b19263f49ce9c3ef28ec2179962", CategoryType.ACCOUNT),
-//                    amount = 345.0,
-//                    comment = "attempt 1",
-//                    timestamp = Instant.now()
-//                )
-//            )
-//        )
-//    }
-//    println("Create transaction: $creationResult")
-//    println()
+    val spendeeDataReader = SpendeeDataReader()
 
-//    val pingResponse = runBlocking {
-//        coinKeeperClient.ping(
-//            PingRequest(
-//                listOf(
-//                    PingItemRequest(EntityType.USER)
-//                )
-//            )
-//        )
-//    }
-//    println(pingResponse)
+    val importService = ImportService(spendeeDataReader, categoryService, transactionService, 5)
+    runBlocking {
+        importService.doImport(File(filePath))
+    }
 }

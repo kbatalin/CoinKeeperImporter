@@ -18,7 +18,7 @@ class CoinKeeperClientFactory(
         }
 
         val okhttpClient = OkHttpClient.Builder()
-            .addInterceptor(logging)
+//            .addInterceptor(logging)
             .addInterceptor(AuthInterceptor())
             .build()
 

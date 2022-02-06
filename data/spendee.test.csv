@@ -1,0 +1,6 @@
+Date,Wallet,Type,"Category name",Amount,Currency,Note,Labels,Author
+2022-01-11T05:14:26+00:00,Wallet,Income,Salary,10000.00000000,RUB,,,"Kirill  Batalin"
+2022-01-11T05:14:27+00:00,Wallet,Expense,Groceries,-809.00000000,RUB,,,"Kirill  Batalin"
+2022-01-11T05:14:28+00:00,Wallet,Expense,Restaurant,-748.00000000,RUB,,,"Kirill  Batalin"
+2022-01-11T05:14:29+00:00,Wallet,Expense,Hygiene,-379.00000000,RUB,,,"Kirill  Batalin"
+2022-01-11T05:14:56+00:00,Wallet,Expense,Other,-391.00000000,RUB,"comment 1",,"Kirill  Batalin"
