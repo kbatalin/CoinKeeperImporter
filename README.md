@@ -12,5 +12,3 @@ I needed to move my data from Spendee to CoinKeeper, but unfortunately the secon
 I am not working on this project now, because I've already solved my problem with this code. However, you can finish it, if you want so.
 
 #### All contributions are welcome!
-
-<meta name="google-site-verification" content="5cV9xQIldY3mtbyzDf9_zdy9dQsU9f63sd_x3RnBJ7I" />
